@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+    <changeSet author="liquibase-docs" id="createProcedure-example">
+        <createProcedure catalogName="cat"
+                         dbms="postgresql, !oracle, mysql"
+                         encoding="UTF-8"
+                         path="com/example/my-logic.sql"
+                         procedureName="new_customer"
+                         relativeToChangelogFile="true"
+                         replaceIfExists="false"
+                         schemaName="public">
+            CREATE OR REPLACE PROCEDURE testHello
+            IS
+            BEGIN
+            DBMS_OUTPUT.PUT_LINE('Hello From The Database!');
+            END;
+        </createProcedure>
+    </changeSet>
+</databaseChangeLog>
