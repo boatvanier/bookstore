@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+    <changeSet id="insert-books-table" author="bo">
+        <insert tableName="books">
+            <column name="title" value="Clean Code"/>
+            <column name="author" value="Robert C. Martin"/>
+            <column name="price" valueNumeric="35.99"/>
+            <column name="stock" valueNumeric="10"/>
+        </insert>
+        <insert tableName="books">
+            <column name="title" value="Spring in Action"/>
+            <column name="author" value="Craig Walls"/>
+            <column name="price" valueNumeric="42.50"/>
+            <column name="stock" valueNumeric="5"/>
+        </insert>
+        <insert tableName="books">
+            <column name="title" value="The Pragmatic Programmer"/>
+            <column name="author" value="Andy Hunt &amp; Dave Thomas"/>
+            <column name="price" valueNumeric="39.95"/>
+            <column name="stock" valueNumeric="7"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

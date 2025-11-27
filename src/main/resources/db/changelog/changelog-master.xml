@@ -8,5 +8,6 @@
     <!-- Include other change logs -->
     <include file="db/changelog/ini/create-tables.xml"/>
     <include file="db/changelog/ini/insert-data-to-users-table.xml"/>
+    <include file="db/changelog/ini/insert-data-to-books-table.xml"/>
     <include file="db/changelog/changelogs/add-image-column-to-books-table.xml"/>
 </databaseChangeLog>
