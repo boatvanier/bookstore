@@ -1,7 +1,6 @@
 package com.example.bookstore.controller;
 
 import com.example.bookstore.controller.response.BookResponse;
-import com.example.bookstore.model.Book;
 import com.example.bookstore.service.BookService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +30,5 @@ public class BookController {
                 .map(BookResponse::toResponse)
                 .orElse(null)
         );
-
     }
 }
