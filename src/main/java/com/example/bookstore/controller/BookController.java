@@ -1,7 +1,9 @@
 package com.example.bookstore.controller;
 
+import com.example.bookstore.controller.request.BookRequest;
 import com.example.bookstore.controller.response.BookResponse;
 import com.example.bookstore.service.BookService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,5 +32,32 @@ public class BookController {
                 .map(BookResponse::toResponse)
                 .orElse(null)
         );
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createBook(@RequestBody BookRequest bookRequest){
+        bookService.createBook(bookRequest.getTitle(),
+                bookRequest.getAuthor(),
+                bookRequest.getPrice(),
+                bookRequest.getStock(),
+                bookRequest.getImage());
+    }
+
+    @PutMapping("/{bookId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateBook(@PathVariable Long bookId, @RequestBody BookRequest bookRequest){
+        bookService.updateBook(bookId,
+                bookRequest.getTitle(),
+                bookRequest.getAuthor(),
+                bookRequest.getPrice(),
+                bookRequest.getStock(),
+                bookRequest.getImage());
+    }
+
+    @DeleteMapping("/{bookId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteBook(@PathVariable Long bookId){
+        bookService.deleteBook(bookId);
     }
 }

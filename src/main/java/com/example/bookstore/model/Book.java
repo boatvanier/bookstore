@@ -1,6 +1,7 @@
 package com.example.bookstore.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,4 +23,11 @@ public class Book {
     private Integer stock;
     private String image;
 
+    public Book(String title, String author, Double price, Integer stock, String image) {
+        this.title = title;
+        this.author = author;
+        this.price = price;
+        this.stock = stock;
+        this.image = image;
+    }
 }

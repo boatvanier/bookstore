@@ -25,5 +25,4 @@ public class User {
     private String password;
     private Timestamp createdAt;
     private String role;
-
 }
