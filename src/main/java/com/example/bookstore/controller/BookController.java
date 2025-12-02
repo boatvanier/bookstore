@@ -1,10 +1,14 @@
 package com.example.bookstore.controller;
 
 import com.example.bookstore.controller.request.BookRequest;
+import com.example.bookstore.controller.request.CreateGroup;
+import com.example.bookstore.controller.request.UpdateGroup;
 import com.example.bookstore.controller.response.BookResponse;
 import com.example.bookstore.service.BookService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,7 +40,7 @@ public class BookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createBook(@RequestBody BookRequest bookRequest){
+    public void createBook(@RequestBody @Validated(CreateGroup.class) BookRequest bookRequest){
         bookService.createBook(bookRequest.getTitle(),
                 bookRequest.getAuthor(),
                 bookRequest.getPrice(),
@@ -46,7 +50,7 @@ public class BookController {
 
     @PutMapping("/{bookId}")
     @ResponseStatus(HttpStatus.OK)
-    public void updateBook(@PathVariable Long bookId, @RequestBody BookRequest bookRequest){
+    public void updateBook(@PathVariable Long bookId, @RequestBody @Validated(UpdateGroup.class) BookRequest bookRequest){
         bookService.updateBook(bookId,
                 bookRequest.getTitle(),
                 bookRequest.getAuthor(),
