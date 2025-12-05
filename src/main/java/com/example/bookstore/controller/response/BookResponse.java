@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @NoArgsConstructor
 @Getter
 @AllArgsConstructor
@@ -15,6 +17,8 @@ public class BookResponse {
     double price;
     int stock;
     String image;
+    int likes;
+    List<UserResponse> likedUsers;
 
     public static BookResponse toResponse(Book book) {
         return new BookResponse(
@@ -23,7 +27,9 @@ public class BookResponse {
                 book.getAuthor(),
                 book.getPrice(),
                 book.getStock(),
-                book.getImage()
+                book.getImage(),
+                book.getLikes().size(),
+                book.getLikes().stream().map(UserResponse::toResponse).toList()
         );
     }
 }
