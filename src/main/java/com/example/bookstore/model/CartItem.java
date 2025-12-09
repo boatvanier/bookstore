@@ -25,4 +25,10 @@ public class CartItem {
     private Book book;
 
     private Integer quantity;
+
+    public CartItem(User user, Book book) {
+        this.user = user;
+        this.book = book;
+        this.quantity = 1;
+    }
 }
