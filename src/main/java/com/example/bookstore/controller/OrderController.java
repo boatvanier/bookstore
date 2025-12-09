@@ -30,4 +30,10 @@ public class OrderController {
     public void placeOrder() {
         orderService.placeOrder();
     }
+
+    @PostMapping("/users/{userId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void placeOrder(@PathVariable Long userId) {
+        orderService.placeOrder(userId);
+    }
 }
