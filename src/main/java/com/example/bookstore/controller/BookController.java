@@ -2,6 +2,7 @@ package com.example.bookstore.controller;
 
 import com.example.bookstore.controller.request.BookRequest;
 import com.example.bookstore.controller.request.CreateGroup;
+import com.example.bookstore.controller.request.LikeBookRequest;
 import com.example.bookstore.controller.request.UpdateGroup;
 import com.example.bookstore.controller.response.BookResponse;
 import com.example.bookstore.service.BookService;
@@ -46,6 +47,12 @@ public class BookController {
                 bookRequest.getPrice(),
                 bookRequest.getStock(),
                 bookRequest.getImage());
+    }
+
+    @PostMapping("/{bookId}/likes")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void likeBook(@PathVariable Long bookId, @RequestBody @Valid LikeBookRequest likeBookRequest){
+        bookService.likeBook(bookId, likeBookRequest.getUserId());
     }
 
     @PutMapping("/{bookId}")
