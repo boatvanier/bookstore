@@ -1,7 +1,9 @@
 package com.example.bookstore.service;
 
 import com.example.bookstore.model.Book;
+import com.example.bookstore.model.User;
 import com.example.bookstore.repository.BookJPARepository;
+import com.example.bookstore.repository.UserJPARepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,4 +48,6 @@ public class BookService {
     public void deleteBook(Long bookId){
         bookJPARepository.deleteById(bookId);
     }
+
+    public void likeBook(Long bookId, Long userId){}
 }
