@@ -2,7 +2,9 @@ package com.example.bookstore.controller;
 
 import com.example.bookstore.controller.response.UserResponse;
 import com.example.bookstore.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@Tag(name = "Users", description = "User management APIs")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
     private final UserService service;
 

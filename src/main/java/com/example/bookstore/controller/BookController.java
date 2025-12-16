@@ -5,6 +5,7 @@ import com.example.bookstore.controller.request.CreateGroup;
 import com.example.bookstore.controller.request.UpdateGroup;
 import com.example.bookstore.controller.response.BookResponse;
 import com.example.bookstore.service.BookService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/books")
+@Tag(name = "Books", description = "Book management APIs")
+@CrossOrigin(origins = "http://localhost:3000")
 public class BookController {
     private final BookService bookService;
 
