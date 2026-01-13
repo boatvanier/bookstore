@@ -13,7 +13,6 @@ import java.util.List;
 
 @RestController
 @Tag(name = "Users", description = "User management APIs")
-@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
     private final UserService service;
 

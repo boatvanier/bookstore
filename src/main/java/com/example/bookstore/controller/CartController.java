@@ -5,6 +5,7 @@ import com.example.bookstore.controller.request.CreateCartRequest;
 import com.example.bookstore.controller.request.UpdateCartRequest;
 import com.example.bookstore.controller.response.CartItemResponse;
 import com.example.bookstore.service.CartService;
+import com.example.bookstore.service.CurrentUserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -20,18 +21,19 @@ import java.util.List;
 @RestController
 @RequestMapping("api/myCart")
 @Tag(name = "Carts", description = "Cart management APIs")
-@CrossOrigin(origins = "http://localhost:3000")
 public class CartController {
     private final CartService cartService;
+    private final CurrentUserService currentUserService;
 
-    public CartController(CartService cartService) {
+    public CartController(CartService cartService, CurrentUserService currentUserService) {
         this.cartService = cartService;
+        this.currentUserService = currentUserService;
     }
 
     @GetMapping
     public ResponseEntity<List<CartItemResponse>> getMyCart() {
         return ResponseEntity.ok(
-                cartService.findMyCart(1L)
+                cartService.findMyCart(currentUserService.getCurrentUserId())
                         .stream().map(CartItemResponse::toResponse)
                         .toList()
         );
