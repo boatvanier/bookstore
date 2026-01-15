@@ -1,13 +1,11 @@
 package com.example.bookstore.controller;
 
+import com.example.bookstore.controller.request.LoginRequest;
 import com.example.bookstore.controller.response.UserResponse;
 import com.example.bookstore.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,6 +35,11 @@ public class UserController {
                         .map(UserResponse::toResponse)
                         .orElse(null)
         );
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginRequest user) {
+        return ResponseEntity.ok(service.login(user.getUsername(), user.getPassword()));
     }
 
 }

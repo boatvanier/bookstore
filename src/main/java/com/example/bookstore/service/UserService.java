@@ -14,10 +14,12 @@ import java.util.Optional;
 public class UserService {
     private final UserJPARepository repository;
     private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
-    public UserService(UserJPARepository repository, AuthenticationManager authenticationManager) {
+    public UserService(UserJPARepository repository, AuthenticationManager authenticationManager, JwtService jwtService) {
         this.repository = repository;
         this.authenticationManager = authenticationManager;
+        this.jwtService = jwtService;
     }
 
     public List<User> findAllUsers(){
@@ -34,7 +36,7 @@ public class UserService {
         );
 
         if (authentication.isAuthenticated()) {
-            return "JWT";
+            return jwtService.generateToken(username);
         }
 
         return "";
