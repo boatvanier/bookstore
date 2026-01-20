@@ -1,6 +1,8 @@
 package com.example.bookstore.repository;
 
 import com.example.bookstore.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -37,7 +39,7 @@ public interface UserJPARepository extends JpaRepository<User, Long> {
     void deleteByEmailNative(@Param("email") String email);
 
     //JPA Query method
-    User findByUserNameContainingAndEmailContainingIgnoreCase(String username, String email);
+    Page<User> findByUserNameContainingOrEmailContainingIgnoreCase(String username, String email, Pageable pageable);
 
     //JPQL
     @Query("Select u from User u where Lower(u.userName) like Lower(concat('%', :keyword, '%'))" +

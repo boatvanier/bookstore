@@ -4,6 +4,7 @@ import com.example.bookstore.controller.request.LoginRequest;
 import com.example.bookstore.controller.response.UserResponse;
 import com.example.bookstore.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,13 +20,15 @@ public class UserController {
     }
 
     @GetMapping("/api/users")
-    public ResponseEntity<List<UserResponse>> getAllUsers(){
+    public ResponseEntity<Page<UserResponse>> getAllUsers(
+            @RequestParam(required = false) String keyword,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "id") String sort
+    ){
         return ResponseEntity.ok(
-                service.findAllUsers()
-                        .stream()
-                        .map(UserResponse::toResponse)
-                        .toList()
-        );
+                service.findAllUsers(keyword,page,size,sort)
+                        .map(UserResponse::toResponse));
     }
 
     @GetMapping("/api/users/{userId}")

@@ -2,6 +2,10 @@ package com.example.bookstore.service;
 
 import com.example.bookstore.model.User;
 import com.example.bookstore.repository.UserJPARepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,9 +26,12 @@ public class UserService {
         this.jwtService = jwtService;
     }
 
-    public List<User> findAllUsers(){
-
-        return repository.findAll();
+    public Page<User> findAllUsers(String keyword, int page, int size, String sort){
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
+        if (keyword == null || keyword.isBlank()){
+            return repository.findAll(pageable);
+        }
+        return repository.findByUserNameContainingOrEmailContainingIgnoreCase(keyword, keyword, pageable);
     }
     public Optional<User> findUserByUserId(Long userId) {
         return repository.findById(userId);
