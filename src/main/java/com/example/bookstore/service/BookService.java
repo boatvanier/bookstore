@@ -1,5 +1,6 @@
 package com.example.bookstore.service;
 
+import com.example.bookstore.exception.ResourceNotFoundException;
 import com.example.bookstore.model.Book;
 import com.example.bookstore.model.User;
 import com.example.bookstore.repository.BookJPARepository;
@@ -36,7 +37,7 @@ public class BookService {
     public void updateBook(Long bookId, String title, String author, Double price, Integer stock, String image) {
         Book book = bookJPARepository
                 .findById(bookId)
-                .orElseThrow(()-> new IllegalArgumentException("Book is not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("Book is not found"));
         book.setTitle(title);
         book.setAuthor(author);
         book.setStock(stock);

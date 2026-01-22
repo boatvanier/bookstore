@@ -1,5 +1,6 @@
 package com.example.bookstore.service;
 
+import com.example.bookstore.exception.ResourceNotFoundException;
 import com.example.bookstore.model.Book;
 import com.example.bookstore.model.CartItem;
 import com.example.bookstore.model.User;
@@ -26,15 +27,15 @@ public class CartService {
 
     public List<CartItem> findMyCart(Long userId){
         User user = userJPARepository.findById(userId)
-                .orElseThrow(()-> new IllegalArgumentException("No user is found"));
+                .orElseThrow(()-> new ResourceNotFoundException("No user is found"));
         return cartItemJPARepository.findByUser(user);
     }
 
     public void createCart(Long userId, Long bookId){
         User user = userJPARepository.findById(userId)
-                .orElseThrow(()-> new IllegalArgumentException("No user is found"));
+                .orElseThrow(()-> new ResourceNotFoundException("No user is found"));
         Book book = bookJPARepository.findById(bookId)
-                .orElseThrow(()->new IllegalArgumentException("no book is found"));
+                .orElseThrow(()->new ResourceNotFoundException("no book is found"));
 
         CartItem cart;
         Optional<CartItem> cartItemOptional = cartItemJPARepository.findByUserAndBook(user, book);
@@ -49,11 +50,11 @@ public class CartService {
 
     public void update(Long userId, Long bookId, int quantity) {
         User user = userJPARepository.findById(userId)
-                .orElseThrow(()-> new IllegalArgumentException("No user is found"));
+                .orElseThrow(()-> new ResourceNotFoundException("No user is found"));
         Book book = bookJPARepository.findById(bookId)
-                .orElseThrow(()->new IllegalArgumentException("no book is found"));
+                .orElseThrow(()->new ResourceNotFoundException("no book is found"));
         CartItem cartItem = cartItemJPARepository.findByUserAndBook(user, book)
-                .orElseThrow(() -> new IllegalArgumentException("no cart item is found"));
+                .orElseThrow(() -> new ResourceNotFoundException("no cart item is found"));
 
         cartItem.setQuantity(quantity);
         cartItemJPARepository.save(cartItem);
@@ -61,7 +62,7 @@ public class CartService {
 
     public void clearCart(Long userId) {
         User user = userJPARepository.findById(userId)
-                .orElseThrow(()-> new IllegalArgumentException("No user is found"));
+                .orElseThrow(()-> new ResourceNotFoundException("No user is found"));
         cartItemJPARepository.deleteByUser(user);
     }
 

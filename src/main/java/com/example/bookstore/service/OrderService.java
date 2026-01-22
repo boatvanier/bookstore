@@ -1,5 +1,6 @@
 package com.example.bookstore.service;
 
+import com.example.bookstore.exception.ResourceNotFoundException;
 import com.example.bookstore.model.*;
 import com.example.bookstore.repository.BookJPARepository;
 import com.example.bookstore.repository.CartItemJPARepository;
@@ -36,7 +37,7 @@ public class OrderService {
     @Transactional
     public void placeOrder(Long userId){
         User user = userJPARepository.findById(userId)
-                .orElseThrow(()->new IllegalArgumentException("user is not found"));
+                .orElseThrow(()->new ResourceNotFoundException("user is not found"));
         List<CartItem> cartItems = cartItemJPARepository.findByUser(user);
 
         if (cartItems.isEmpty()) {

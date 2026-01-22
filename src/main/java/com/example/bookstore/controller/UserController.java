@@ -2,6 +2,7 @@ package com.example.bookstore.controller;
 
 import com.example.bookstore.controller.request.LoginRequest;
 import com.example.bookstore.controller.response.UserResponse;
+import com.example.bookstore.exception.ResourceNotFoundException;
 import com.example.bookstore.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
@@ -36,7 +37,7 @@ public class UserController {
         return ResponseEntity.ok(
                 service.findUserByUserId(userId)
                         .map(UserResponse::toResponse)
-                        .orElse(null)
+                        .orElseThrow(()->new ResourceNotFoundException("user not found"))
         );
     }
 
