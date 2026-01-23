@@ -2,6 +2,9 @@ package com.example.bookstore.service;
 
 import com.example.bookstore.model.User;
 import com.example.bookstore.repository.UserJPARepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -33,8 +36,19 @@ public class UserService {
         }
         return repository.findByUserNameContainingOrEmailContainingIgnoreCase(keyword, keyword, pageable);
     }
+    @Cacheable(value = "users", key = "#userId")
     public Optional<User> findUserByUserId(Long userId) {
         return repository.findById(userId);
+    }
+
+    @CacheEvict(value = "users", key="#id")
+    public void deleteUser(Long id) {
+        repository.deleteById(id);
+    }
+
+    @CachePut(value = "users", key="#user.id")
+    public User updateUser(User user) {
+        return repository.save(user);
     }
 
     public String login(String username, String password) {
