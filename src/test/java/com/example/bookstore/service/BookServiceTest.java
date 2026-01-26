@@ -1,5 +1,6 @@
 package com.example.bookstore.service;
 
+import com.example.bookstore.exception.ResourceNotFoundException;
 import com.example.bookstore.model.Book;
 import com.example.bookstore.repository.BookJPARepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -104,7 +105,7 @@ class BookServiceTest {
     void testUpdateBook_notFound() {
         when(bookJPARepository.findById(1L)).thenReturn(Optional.empty());
 
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
             bookService.updateBook(1L, "Title", "Author", 20.0, 5, "img");
         });
 
