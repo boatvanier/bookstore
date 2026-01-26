@@ -6,6 +6,9 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
     <changeSet id="run-sql-example" author="bo">
         <sql>
+            update users
+            set password = '$2a$12$8hIrPwQpRQPDT7v0XM/59eoSemm3xtc3vi2Bw0Dffo5lYFHIqwMnO'
+            where user_name = 'admin'
         </sql>
     </changeSet>
 </databaseChangeLog>
